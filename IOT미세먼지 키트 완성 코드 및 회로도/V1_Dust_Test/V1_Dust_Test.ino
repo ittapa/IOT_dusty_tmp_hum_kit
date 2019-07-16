@@ -12,7 +12,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 #define BLYNK_PRINT Serial 
 
 //Blynk 프로젝트 인증 토큰값 지정
-char auth[] = "e9a4508c89ae4f168a12d41a152aff76";
+char auth[] = "pwlV16RbZSKnYxlT1uP4DhJyQ5OLFkP3";
 //BlynkTimer timer; // bliynk timer 선언
 
 //WIFI모듈 아이디 비밀번호 설정
@@ -20,7 +20,7 @@ char ssid[] = "notebook-2.4G"; //사용 WiFi의 SSID입력
 char pass[] = "make2407"; //사용 WiFi의 password입력
 
 //DHT11 온습도센서 세팅
-#define DHTPIN D12                // DHT11 연결핀
+#define DHTPIN D2    // DHT2 연결핀
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -66,8 +66,8 @@ void setup(){
 void loop(){
 
   //dht11 온습도센서 코드
-  int h = dht.readHumidity();     // 습도 값 구하기
-  int t = dht.readTemperature();  // 온도 값 구하기
+  long h = dht.readHumidity();     // 습도 값 구하기
+  long t = dht.readTemperature();  // 온도 값 구하기
   Serial.print("Humidity: ");
   Serial.print(h);
   Serial.println(" %\t");
@@ -125,9 +125,9 @@ void loop(){
   }
 
   // Blynk APP으로 값 전달
-  Blynk.virtualWrite(V0, SumUg);
-  Blynk.virtualWrite(V1, t);
-  Blynk.virtualWrite(V2, h);
+  Blynk.virtualWrite(V0, SumUg); //V0 : 미세먼지 측정값
+  Blynk.virtualWrite(V1, t); // V1: 온도
+  Blynk.virtualWrite(V2, h); //V2: 습도
   // Blynk.notify("The air is so bad!!"); //Notifiation위젯에서 "The air is so bad!!" 알림
 }
 
